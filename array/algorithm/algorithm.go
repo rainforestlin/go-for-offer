@@ -208,5 +208,50 @@ func InversePairs(nums []int) (count int) {
 	if nums == nil || len(nums) == 0 {
 		return 0
 	}
+	length := len(nums)
+	var copySlice = make([]int, len(nums))
+	copy(copySlice, nums)
+	count = mergeSort(nums, copySlice, 0, length-1)
 	return
+}
+
+func mergeSort(slice, copySlice []int, start, end int) int {
+	if start == end {
+		return 0
+	}
+	mid := (start + end) / 2
+	leftCount := mergeSort(slice, copySlice, start, mid) % 1000000007
+	rightCount := mergeSort(slice, copySlice, mid+1, end) % 1000000007
+	var count int
+	i := mid
+	j := end
+	locCopy := end
+	for i > start && j > mid {
+		if slice[i] > slice[j] {
+			count += j - mid
+			locCopy--
+			i--
+
+			copySlice[locCopy] = slice[i]
+			if count >= 1000000007 {
+				count %= 1000000007
+			}
+		} else {
+			locCopy--
+			j--
+			copySlice[locCopy] = slice[i]
+		}
+	}
+	for ; i >=start; i-- {
+		locCopy--
+		copySlice[locCopy] = slice[i]
+	}
+	for ; j > mid; j-- {
+		locCopy--
+		copySlice[locCopy] = slice[j]
+	}
+	for index := start; index <= end; index++ {
+		slice[index] = copySlice[index]
+	}
+	return (leftCount + rightCount + count) % 1000000007
 }

@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-	var num int
-	num = algorithm.FindSmallestNumInRotate([]int{3, 4, 5, 0, 2})
-	fmt.Println(num)
+	x := algorithm.SingleNumber([]int{1, 3})
+	fmt.Println(x)
 }
