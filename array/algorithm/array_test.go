@@ -69,3 +69,21 @@ func compareSliceLen(sliceA, sliceB []int) bool {
 	return true
 
 }
+
+func Test(t *testing.T) {
+	inputs := []struct {
+		input  []int
+		result int
+	}{
+		{[]int{1, 1, 1, 1, 12, 3, 4, 5, 6, 1, 1, 1}, 1},
+		{[]int{1, 2, 3, 4, 5, 6, 7, 8, 8}, -1},
+		{[]int{1, 1, 1, 1, 1, 2, 2, 2, 2, 2}, -1},
+	}
+	for _, input := range inputs {
+		result := MoreThanHalfNumByCount(input.input)
+		actual := input.result
+		if actual != result {
+			t.Errorf("More than half num err,get %d,actual %d", result, actual)
+		}
+	}
+}

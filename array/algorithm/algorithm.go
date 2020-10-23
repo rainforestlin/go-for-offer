@@ -1,5 +1,10 @@
 package algorithm
 
+import (
+	"sort"
+	"strconv"
+)
+
 func FindNumbersSumEqualN(a []int, sum int) []int {
 	/**
 	  输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。
@@ -242,7 +247,7 @@ func mergeSort(slice, copySlice []int, start, end int) int {
 			copySlice[locCopy] = slice[i]
 		}
 	}
-	for ; i >=start; i-- {
+	for ; i >= start; i-- {
 		locCopy--
 		copySlice[locCopy] = slice[i]
 	}
@@ -254,4 +259,126 @@ func mergeSort(slice, copySlice []int, start, end int) int {
 		slice[index] = copySlice[index]
 	}
 	return (leftCount + rightCount + count) % 1000000007
+}
+
+func GetLeastNumbersBySortAll(input []int, k int) []int {
+	/**
+	输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
+	全部排序版
+	*/
+	if len(input) == 0 || k < 0 {
+		return nil
+	}
+	if k >= len(input) {
+		return input
+	}
+	sort.Ints(input)
+	return input[:k]
+}
+
+func GetLeastNumbersByPartialSort(input []int, k int) []int {
+	/**
+	因为只要求拿到前k个值，并没有要求顺序，先假设原切片前k个值为结果，然后选取该结果中的最大值和后续进行比较
+	如果后续的值比较小，就交换入结果切片。最终结果切片中的值为确为最小k个值
+	*/
+	if len(input) == 0 || k < 0 {
+		return nil
+	}
+	if k >= len(input) {
+		return input
+	}
+
+	result := input[0:k]
+	for i := k; i < len(input); i++ {
+		max := findMax(result)
+		if result[max] > input[i] {
+			result[max], input[i] = input[i], result[max]
+		}
+	}
+	return result
+}
+
+func findMax(data []int) (max int) {
+	max = 0
+	for i := 1; i < len(data); i++ {
+		if data[i] > data[max] {
+			max = i
+		}
+	}
+	return max
+}
+
+func MoreThanHalfNumByCount(input []int) int {
+	time := 0
+	result := 0
+	for i := 0; i < len(input); i++ {
+		if time == 0 {
+			result = input[i]
+			time++
+		} else if result == input[i] {
+			time++
+		} else if result != input[i] {
+			time--
+		}
+	}
+	if time == 0 {
+		return -1
+	}
+	count := 0
+	for _, num := range input {
+		if num == result {
+			count++
+		}
+	}
+	if count < len(input)/2 {
+		return -1
+	}
+	return result
+}
+
+func PrintMinNum(numbers []int) string {
+	/**
+	  输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
+	  	例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。
+	*/
+	length := len(numbers)
+	for i := 0; i < length-1; i++ {
+		for j := i + 1; j < length; j++ {
+			if compare(numbers[i], numbers[j]) {
+				numbers[i], numbers[j] = numbers[j], numbers[i]
+			}
+		}
+	}
+	var str string
+	for _, v := range numbers {
+		str += strconv.Itoa(v)
+	}
+	return str
+
+}
+
+func compare(a, b int) bool {
+	m := strconv.Itoa(a) + strconv.Itoa(b)
+	n := strconv.Itoa(b) + strconv.Itoa(a)
+	mm, _ := strconv.Atoi(m)
+	nn, _ := strconv.Atoi(n)
+
+	if mm > nn {
+		return true
+	}
+	return false
+}
+
+func Duplicate(num []int) int {
+	length := len(num)
+	for _, x := range num {
+		if x >= length {
+			x = x - length
+		}
+		if num[x] >= length {
+			return x
+		}
+		num[x] = num[x] + length
+	}
+	return -1
 }

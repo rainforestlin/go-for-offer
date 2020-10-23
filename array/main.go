@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	x := algorithm.SingleNumber([]int{1, 3})
+	x := algorithm.Duplicate([]int{1, 2, 3, 4, 5, 6, 7, 0})
 	fmt.Println(x)
 }
