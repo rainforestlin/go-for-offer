@@ -5,6 +5,7 @@ import (
 	"strconv"
 )
 
+// FindNumbersSumEqualN 输出最小乘积的两个数
 func FindNumbersSumEqualN(a []int, sum int) []int {
 	/**
 	  输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。
@@ -23,15 +24,16 @@ func FindNumbersSumEqualN(a []int, sum int) []int {
 			break
 		}
 		if a[start]+a[end] > sum {
-			end -= 1
+			end--
 		}
 		if a[start]+a[end] < sum {
-			start += 1
+			start++
 		}
 	}
 	return result
 }
 
+// FindContinuousSequence 输出多组连续正数和为N
 func FindContinuousSequence(sum int) (result [][]int) {
 	/**
 	小明很喜欢数学,有一天他在做数学作业时,要求计算出9~16的和,他马上就写出了正确答案是100。
@@ -62,11 +64,8 @@ func FindContinuousSequence(sum int) (result [][]int) {
 	return
 }
 
+// MaxSubArraySum 一个整数数组中的元素有正有负，在该数组中找出一个连续子数组，要求该连续子数组中各元素的和最大，这个连续子数组便被称作最大连续子数组。比如数组{2,4,-7,5,2,-1,2,-4,3}的最大连续子数组为{5,2,-1,2}，最大连续子数组的和为5+2-1+2=8。
 func MaxSubArraySum(nums []int) (result int) {
-	/**
-	一个整数数组中的元素有正有负，在该数组中找出一个连续子数组，要求该连续子数组中各元素的和最大，这个连续子数组便被称作最大连续子数组。
-	比如数组{2,4,-7,5,2,-1,2,-4,3}的最大连续子数组为{5,2,-1,2}，最大连续子数组的和为5+2-1+2=8。
-	*/
 	result = nums[0]
 	sum := 0
 	for _, num := range nums {
@@ -82,6 +81,7 @@ func MaxSubArraySum(nums []int) (result int) {
 	return
 }
 
+// GetNumbersOfNFirst 输出前N个
 func GetNumbersOfNFirst(num []int, n int) (times int) {
 	if num == nil || len(num) == 0 {
 		return 0
@@ -109,6 +109,7 @@ func GetNumbersOfNFirst(num []int, n int) (times int) {
 	return
 }
 
+// GetNumbersOfNSecond 输出前N个数
 func GetNumbersOfNSecond(nums []int, n int) int {
 	if nums == nil {
 		return 0
@@ -155,6 +156,7 @@ func fetchLastN(elem []int, n, start, end int) int {
 	return -1
 }
 
+// SingleNumber 输出只出现了一次的元素
 func SingleNumber(nums []int) int {
 	/**
 	给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素
@@ -166,6 +168,7 @@ func SingleNumber(nums []int) int {
 	return result
 }
 
+// FindSmallestNumInRotate 找到翻转数组中的最小数
 func FindSmallestNumInRotate(nums []int) int {
 	/**
 	找到翻转数组中的最小数
@@ -195,6 +198,7 @@ func FindSmallestNumInRotate(nums []int) int {
 	return nums[start]
 }
 
+// InversePairs 逆序对总数
 func InversePairs(nums []int) (count int) {
 	/**
 	在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组,求出这个数组中的逆序对的总数P。并将P对1000000007取模的结果输出。即输出P%1000000007。
@@ -261,6 +265,7 @@ func mergeSort(slice, copySlice []int, start, end int) int {
 	return (leftCount + rightCount + count) % 1000000007
 }
 
+// GetLeastNumbersBySortAll 输入n个整数，找出其中最小的K个数
 func GetLeastNumbersBySortAll(input []int, k int) []int {
 	/**
 	输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
@@ -276,6 +281,7 @@ func GetLeastNumbersBySortAll(input []int, k int) []int {
 	return input[:k]
 }
 
+// GetLeastNumbersByPartialSort 找到前K个值
 func GetLeastNumbersByPartialSort(input []int, k int) []int {
 	/**
 	因为只要求拿到前k个值，并没有要求顺序，先假设原切片前k个值为结果，然后选取该结果中的最大值和后续进行比较
@@ -308,6 +314,7 @@ func findMax(data []int) (max int) {
 	return max
 }
 
+// MoreThanHalfNumByCount 查找数组中某个数是否超过一半
 func MoreThanHalfNumByCount(input []int) int {
 	time := 0
 	result := 0
@@ -336,6 +343,7 @@ func MoreThanHalfNumByCount(input []int) int {
 	return result
 }
 
+// PrintMinNum 输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。
 func PrintMinNum(numbers []int) string {
 	/**
 	  输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
@@ -369,6 +377,7 @@ func compare(a, b int) bool {
 	return false
 }
 
+// Duplicate 查重
 func Duplicate(num []int) int {
 	length := len(num)
 	for _, x := range num {
@@ -383,12 +392,13 @@ func Duplicate(num []int) int {
 	return -1
 }
 
+// MaxSlideWindow 滑动窗口中的最大值
 func MaxSlideWindow(nums []int, k int) []int {
 	/**
-	定一个数组和滑动窗口的大小，找出所有滑动窗口里数值的最大值。
-	例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，他们的最大值分别为{4,4,6,6,6,5}；
-	针对数组{2,3,4,2,6,2,5,1}的滑动窗口有以下6个：
-	{[2,3,4],2,6,2,5,1}， {2,[3,4,2],6,2,5,1}， {2,3,[4,2,6],2,5,1}， {2,3,4,[2,6,2],5,1}， {2,3,4,2,[6,2,5],1}， {2,3,4,2,6,[2,5,1]}。
+	  定一个数组和滑动窗口的大小，找出所有滑动窗口里数值的最大值。
+	  例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，他们的最大值分别为{4,4,6,6,6,5}；
+	  针对数组{2,3,4,2,6,2,5,1}的滑动窗口有以下6个：
+	  {[2,3,4],2,6,2,5,1}， {2,[3,4,2],6,2,5,1}， {2,3,[4,2,6],2,5,1}， {2,3,4,[2,6,2],5,1}， {2,3,4,2,[6,2,5],1}， {2,3,4,2,6,[2,5,1]}。
 	*/
 	length := len(nums)
 	if length == 0 || k <= 0 || k > length {
@@ -411,6 +421,7 @@ func MaxSlideWindow(nums []int, k int) []int {
 	return result
 }
 
+// MaxSlideWindowByCompareIndex 滑动窗口中的最大值
 func MaxSlideWindowByCompareIndex(nums []int, k int) []int {
 	length := len(nums)
 	if length == 0 || k <= 0 || k > length {
@@ -446,6 +457,7 @@ func getMax(nums []int, left, right int) int {
 	return left
 }
 
+// ConstructMultiply 构建数积
 func ConstructMultiply(a []int) []int {
 	/**
 	给定一个数组A[0,1,…,n-1],请构建一个数组B[0,1,…,n-1],其中B中的元素B[i]=A[0] * A[1] * … * A[i-1] * A[i+1] * … * A[n-1]。

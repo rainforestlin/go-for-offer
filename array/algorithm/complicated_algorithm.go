@@ -2,19 +2,22 @@ package algorithm
 
 import "container/heap"
 
+// MedianFinder 查找中位数的大小堆
 type MedianFinder struct {
-	minHeap *heapMin
-	maxHeap *heapMin
+	minHeap *HeapMin
+	maxHeap *HeapMin
 }
 
+// Constructor 查找中位数的构造函数
 /** initialize your data structure here. */
 func Constructor() MedianFinder {
 	return MedianFinder{
-		minHeap: new(heapMin),
-		maxHeap: new(heapMin),
+		minHeap: new(HeapMin),
+		maxHeap: new(HeapMin),
 	}
 }
 
+// AddNum 往堆里增加数字
 func (m *MedianFinder) AddNum(num int) {
 
 	if m.minHeap.Len() > 0 && num > (*m.minHeap)[0] {
@@ -30,6 +33,7 @@ func (m *MedianFinder) AddNum(num int) {
 	}
 }
 
+// FindMedian 查找中位数
 func (m *MedianFinder) FindMedian() float64 {
 	if m.minHeap.Len() > m.maxHeap.Len() {
 		return float64((*m.minHeap)[0])
@@ -39,39 +43,44 @@ func (m *MedianFinder) FindMedian() float64 {
 	return float64((*m.minHeap)[0]-(*m.maxHeap)[0]) / float64(2)
 }
 
-type heapMin []int
+// HeapMin 最小堆
+type HeapMin []int
 
-func (h heapMin) Len() int {
+func (h HeapMin) Len() int {
 	return len(h)
 }
 
-func (h heapMin) Less(i, j int) bool {
+func (h HeapMin) Less(i, j int) bool {
 	return h[i] < h[j]
 }
 
-func (h *heapMin) Swap(i, j int) {
+func (h *HeapMin) Swap(i, j int) {
 	(*h)[i], (*h)[j] = (*h)[j], (*h)[i]
 }
 
-func (h *heapMin) Push(x interface{}) {
+// Push 往堆里添加
+func (h *HeapMin) Push(x interface{}) {
 	*h = append(*h, x.(int))
 }
 
-func (h *heapMin) Pop() interface{} {
+// Pop 从堆里删除
+func (h *HeapMin) Pop() interface{} {
 	tmp := (*h)[len(*h)-1]
 	*h = (*h)[:len(*h)-1]
 	return tmp
 }
 
-func InitHeap(a []int) *heapMin {
-	h := new(heapMin)
+// InitHeap 初始化堆
+func InitHeap(a []int) *HeapMin {
+	h := new(HeapMin)
 	for _, v := range a {
 		heap.Push(h, v)
 	}
 	return h
 }
 
-func HeapSort(h *heapMin) []int {
+// HeapSort 堆排序
+func HeapSort(h *HeapMin) []int {
 	var result []int
 	for range *h {
 		result = append(result, heap.Pop(h).(int))
