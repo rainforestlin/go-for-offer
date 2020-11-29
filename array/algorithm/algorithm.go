@@ -83,7 +83,7 @@ func MaxSubArraySum(nums []int) (result int) {
 
 // GetNumbersOfNFirst 输出前N个
 func GetNumbersOfNFirst(num []int, n int) (times int) {
-	if num == nil || len(num) == 0 {
+	if len(num) == 0 {
 		return 0
 	}
 	start := 0
@@ -214,7 +214,7 @@ func InversePairs(nums []int) (count int) {
 	输出
 	7
 	*/
-	if nums == nil || len(nums) == 0 {
+	if len(nums) == 0 {
 		return 0
 	}
 	length := len(nums)
@@ -371,10 +371,7 @@ func compare(a, b int) bool {
 	mm, _ := strconv.Atoi(m)
 	nn, _ := strconv.Atoi(n)
 
-	if mm > nn {
-		return true
-	}
-	return false
+	return mm > nn
 }
 
 // Duplicate 查重
