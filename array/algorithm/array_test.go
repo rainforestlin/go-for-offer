@@ -1,6 +1,9 @@
 package algorithm
 
-import "testing"
+import (
+	"math"
+	"testing"
+)
 
 func TestFindNumbersSumEqualN(t *testing.T) {
 	tests := []struct {
@@ -68,6 +71,42 @@ func compareSliceLen(sliceA, sliceB []int) bool {
 	}
 	return true
 
+}
+
+func TestFindMedian(t *testing.T) {
+	inputs := []struct {
+		input  []int
+		output float64
+	}{
+		{
+			[]int{1, 2, 3, 4, 5, 6, 7},
+			4.0,
+		},{
+			[]int{7,6,5,4,3,2,1},
+			4.0,
+		},
+	}
+	for _, test := range inputs {
+		heap := Constructor()
+		for _, num := range test.input {
+			heap.AddNum(num)
+		}
+		result := heap.FindMedian()
+		if !isEqual(result, test.output) {
+			t.Errorf("FindMedian error")
+		}
+
+	}
+}
+
+const MIN = 0.000001
+
+func isEqual(a float64, b float64) bool {
+	if a > b {
+		return math.Dim(a, b) < MIN
+	} else {
+		return math.Dim(b, a) < MIN
+	}
 }
 
 func Test(t *testing.T) {
