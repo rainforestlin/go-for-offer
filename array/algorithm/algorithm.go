@@ -382,3 +382,92 @@ func Duplicate(num []int) int {
 	}
 	return -1
 }
+
+func MaxSlideWindow(nums []int, k int) []int {
+	/**
+	定一个数组和滑动窗口的大小，找出所有滑动窗口里数值的最大值。
+	例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，他们的最大值分别为{4,4,6,6,6,5}；
+	针对数组{2,3,4,2,6,2,5,1}的滑动窗口有以下6个：
+	{[2,3,4],2,6,2,5,1}， {2,[3,4,2],6,2,5,1}， {2,3,[4,2,6],2,5,1}， {2,3,4,[2,6,2],5,1}， {2,3,4,2,[6,2,5],1}， {2,3,4,2,6,[2,5,1]}。
+	*/
+	length := len(nums)
+	if length == 0 || k <= 0 || k > length {
+		return nil
+	}
+	var result []int
+	if k == 1 {
+		return nums
+	}
+	for i := 0; i <= length-k; i++ {
+		temp := nums[i]
+		for j := i + 1; j < i+k; j++ {
+			if nums[j] > temp {
+				temp = nums[j]
+			}
+		}
+		result = append(result, temp)
+	}
+
+	return result
+}
+
+func MaxSlideWindowByCompareIndex(nums []int, k int) []int {
+	length := len(nums)
+	if length == 0 || k <= 0 || k > length {
+		return nil
+	}
+	var maxNums []int
+	max := -1
+	for i := 0; i <= length-k; i++ {
+		l := i
+		r := i + k - 1
+		if max == -1 || max == l-1 {
+			max = getMax(nums, l, r)
+		} else {
+			if nums[r] > nums[max] {
+				max = r
+			}
+		}
+		maxNums = append(maxNums, nums[max])
+
+	}
+	return maxNums
+}
+
+//双指针查找最大值的索引
+func getMax(nums []int, left, right int) int {
+	for left < right {
+		if nums[left] > nums[right] {
+			right--
+		} else {
+			left++
+		}
+	}
+	return left
+}
+
+func ConstructMultiply(a []int) []int {
+	/**
+	给定一个数组A[0,1,…,n-1],请构建一个数组B[0,1,…,n-1],其中B中的元素B[i]=A[0] * A[1] * … * A[i-1] * A[i+1] * … * A[n-1]。
+	*/
+	size := len(a)
+	if size <= 1 {
+		return a
+	}
+	left, right := make([]int, size), make([]int, size)
+	left[0] = 1
+	right[size-1] = 1
+
+	for i := 1; i < size; i++ {
+		left[i] = left[i-1] * a[i-1]
+	}
+
+	for i := size - 2; i >= 0; i-- {
+		right[i] = right[i+1] * a[i+1]
+	}
+	b := make([]int, size)
+	for i := 0; i < size; i++ {
+		b[i] = left[i] * right[i]
+	}
+	return b
+}
