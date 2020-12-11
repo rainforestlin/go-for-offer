@@ -480,3 +480,23 @@ func ConstructMultiply(a []int) []int {
 	}
 	return b
 }
+
+// SearchMatrix 查找有序二维数组中是否存在某个数
+func SearchMatrix(matrix [][]int, target int) bool {
+	if len(matrix) == 0 {
+		return false
+	}
+	row := 0
+	col := len(matrix[0]) - 1
+	for row <= len(matrix)-1 && col > 0 {
+		if matrix[row][col] > target {
+			col--
+		} else if matrix[row][col] < target {
+			row++
+		} else {
+			return true
+		}
+	}
+	return false
+}
+

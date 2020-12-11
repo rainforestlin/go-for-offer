@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	x := algorithm.InitHeap([]int{3, 1, 6, 7, 9, 2, 4, 5})
-	fmt.Println(algorithm.HeapSort(x))
+	x := algorithm.SearchMatrix([][]int{{1,2,3,4},{5,6,7,8}}, 9)
+	fmt.Println(x)
 }
